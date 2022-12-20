@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
 import { Colors } from "../components/constants/Colors";
-import PrimaryButton from "../components/PrimaryButton";
+import PrimaryButton from "../components/ui/PrimaryButton";
 
 interface IProps {
   onPickNumber: (number: number) => void;

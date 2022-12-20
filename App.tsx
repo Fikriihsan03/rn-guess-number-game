@@ -14,7 +14,7 @@ export default function App() {
     setNumberToGuess(number);
   }
   if (numberToGuess != undefined) {
-    screen = <GameScreen />;
+    screen = <GameScreen numberToGuess={numberToGuess}/>;
   }
   return (
     <LinearGradient
