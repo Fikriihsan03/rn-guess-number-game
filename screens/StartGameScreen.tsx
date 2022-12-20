@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
+import { Colors } from "../components/constants/Colors";
 import PrimaryButton from "../components/PrimaryButton";
 
 interface IProps {
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     marginHorizontal: 24,
     borderRadius: 8,
-    backgroundColor: "#4e0329",
+    backgroundColor: Colors.primary700,
     elevation: 6,
     shadowColor: "black",
     shadowOpacity: 0.25,
@@ -67,8 +68,8 @@ const styles = StyleSheet.create({
   },
   inputNumber: {
     borderBottomWidth: 2,
-    borderBottomColor: "#ddb52f",
-    color: "#ddb52f",
+    borderBottomColor: Colors.accent500,
+    color: Colors.accent500,
     height: 50,
     width: 50,
     fontSize: 30,
