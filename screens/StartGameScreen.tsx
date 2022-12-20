@@ -1,15 +1,29 @@
 import { useState } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { Alert, StyleSheet, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 
-const StartGameScreen = () => {
-  const [numberToGuess, setNumberToGuess] = useState<number>();
+interface IProps {
+  onPickNumber: (number: number) => void;
+}
+
+const StartGameScreen = ({ onPickNumber }: IProps) => {
+  const [pickedNumber, setPickedNumber] = useState<number | null>(null);
 
   function numberInputHandler(enteredNumber: string) {
-    setNumberToGuess(+enteredNumber);
+    if (isNaN(+enteredNumber)) return;
+    setPickedNumber(+enteredNumber);
+  }
+  function resetInputHandler() {
+    setPickedNumber(null);
   }
   function confirmInputHandler() {
-    console.log("pressed");
+    if (pickedNumber! <= 0 || pickedNumber! > 99) {
+      Alert.alert("Invalid number!", "Number has to be between 1 and 99", [
+        { text: "Okay", style: "destructive", onPress: resetInputHandler },
+      ]);
+      return;
+    }
+    onPickNumber(pickedNumber!);
   }
   return (
     <View style={styles.inputContainer}>
@@ -20,11 +34,11 @@ const StartGameScreen = () => {
         autoCapitalize="none"
         autoCorrect={false}
         onChangeText={numberInputHandler}
-        value={numberToGuess?.toString()}
+        value={pickedNumber?.toString()}
       />
       <View style={styles.buttonsContainer}>
         <View style={styles.buttonWrapper}>
-          <PrimaryButton>Reset</PrimaryButton>
+          <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
         </View>
         <View style={styles.buttonWrapper}>
           <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
