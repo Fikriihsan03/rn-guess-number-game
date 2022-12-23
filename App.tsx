@@ -40,6 +40,10 @@ export default function App() {
   function gameOverHandler() {
     setIsGameOver(true);
   }
+  function ReStartGameHandler() {
+    setNumberToGuess(null);
+    setIsGameOver(false);
+  }
 
   if (numberToGuess != undefined) {
     screen = (
@@ -47,7 +51,13 @@ export default function App() {
     );
   }
   if (isGameOver && numberToGuess != undefined) {
-    screen = <GameOverScreen />;
+    screen = (
+      <GameOverScreen
+        onReStartGame={ReStartGameHandler}
+        totalRounds={0}
+        numberToGuess={numberToGuess}
+      />
+    );
   }
 
   return (

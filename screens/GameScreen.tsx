@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { Alert, StyleSheet, Text, View } from "react-native";
-import {Ionicons} from "@expo/vector-icons"
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import NumberContainer from "../components/game/NumberContainer";
 import Card from "../components/ui/Card";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import TextInstructions from "../components/ui/TextInstructions";
 import Title from "../components/ui/Title";
+import GuessLogItem from "../components/game/GuessLogItem";
 
 interface IProps {
   numberToGuess: number;
@@ -28,11 +29,17 @@ function generateRandomNumber(
 
 const GameScreen = ({ numberToGuess, onGameOver }: IProps) => {
   const initialGuess = generateRandomNumber(1, 100, numberToGuess);
-  const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [currentGuess, setCurrentGuess] = useState<number>(initialGuess);
+  const [guessRounds, setGuessRounds] = useState<number[]>([]);
 
   useEffect(() => {
     if (currentGuess === numberToGuess) onGameOver();
   }, [currentGuess, numberToGuess, onGameOver]);
+
+  useEffect(() => {
+    maxBoundary = 100;
+    minBoundary = 1;
+  }, []);
 
   function nextGuessHandler(direction: string) {
     if (
@@ -52,6 +59,7 @@ const GameScreen = ({ numberToGuess, onGameOver }: IProps) => {
       currentGuess
     );
     setCurrentGuess(nextGuessNumber);
+    setGuessRounds((prevRounds) => [nextGuessNumber, ...prevRounds]);
   }
 
   return (
@@ -59,7 +67,9 @@ const GameScreen = ({ numberToGuess, onGameOver }: IProps) => {
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
-        <TextInstructions style={styles.instructionText}>Higher or Lower</TextInstructions>
+        <TextInstructions style={styles.instructionText}>
+          Higher or Lower
+        </TextInstructions>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonWrapper}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, "higher")}>
@@ -73,6 +83,18 @@ const GameScreen = ({ numberToGuess, onGameOver }: IProps) => {
           </View>
         </View>
       </Card>
+      <View>
+        <FlatList
+          data={guessRounds}
+          renderItem={(itemData) => (
+            <GuessLogItem
+              roundNumber={guessRounds.length - itemData.index}
+              guessedNumber={itemData.item}
+            />
+          )}
+          keyExtractor={(item) => item.toString()}
+        />
+      </View>
     </View>
   );
 };
@@ -89,9 +111,9 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     flex: 1,
-    margin:4
+    margin: 4,
   },
-  instructionText:{
-    marginBottom:20
-  }
+  instructionText: {
+    marginBottom: 20,
+  },
 });
