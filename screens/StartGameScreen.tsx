@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     fontSize: 30,
-    fontWeight: "bold",
+    fontFamily:"open-sans-bold",
     marginVertical: 8,
     textAlign: "center",
   },
