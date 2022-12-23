@@ -32,7 +32,6 @@ const StartGameScreen = ({ onPickNumber }: IProps) => {
   return (
     <View style={styles.rootContainer}>
       <Title>Guess My Number</Title>
-      {/* <View style={styles.inputContainer}> */}
         <Card>
           <TextInstructions>Enter a Number</TextInstructions>
           <TextInput
@@ -55,7 +54,6 @@ const StartGameScreen = ({ onPickNumber }: IProps) => {
             </View>
           </View>
         </Card>
-      {/* </View> */}
     </View>
   );
 };
