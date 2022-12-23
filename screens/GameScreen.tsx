@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryButton from "../components/ui/PrimaryButton";
@@ -6,7 +6,9 @@ import Title from "../components/ui/Title";
 
 interface IProps {
   numberToGuess: number;
+  onGameOver: () => void;
 }
+
 let maxBoundary: number = 100;
 let minBoundary: number = 1;
 
@@ -19,15 +21,16 @@ function generateRandomNumber(
   if (randomNumber === exclude) return generateRandomNumber(min, max, exclude);
   return randomNumber;
 }
-const GameScreen = ({ numberToGuess }: IProps) => {
-  const initialGuess = generateRandomNumber(
-    minBoundary,
-    maxBoundary,
-    numberToGuess
-  );
+
+const GameScreen = ({ numberToGuess, onGameOver }: IProps) => {
+  const initialGuess = generateRandomNumber(1, 100, numberToGuess);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
 
-  const nextGuessHandler = (direction: string) => {
+  useEffect(() => {
+    if (currentGuess === numberToGuess) onGameOver();
+  }, [currentGuess, numberToGuess, onGameOver]);
+
+  function nextGuessHandler(direction: string) {
     if (
       (direction == "lower" && currentGuess < numberToGuess) ||
       (direction == "higher" && currentGuess > numberToGuess)
@@ -45,7 +48,8 @@ const GameScreen = ({ numberToGuess }: IProps) => {
       currentGuess
     );
     setCurrentGuess(nextGuessNumber);
-  };
+  }
+
   return (
     <View style={styles.screen}>
       <Title>Opponent's Guess</Title>
