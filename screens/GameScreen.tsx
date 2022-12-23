@@ -11,7 +11,7 @@ import GuessLogItem from "../components/game/GuessLogItem";
 
 interface IProps {
   numberToGuess: number;
-  onGameOver: () => void;
+  onGameOver: (totalRound: number) => void;
 }
 
 let maxBoundary: number = 100;
@@ -33,7 +33,7 @@ const GameScreen = ({ numberToGuess, onGameOver }: IProps) => {
   const [guessRounds, setGuessRounds] = useState<number[]>([]);
 
   useEffect(() => {
-    if (currentGuess === numberToGuess) onGameOver();
+    if (currentGuess === numberToGuess) onGameOver(guessRounds.length);
   }, [currentGuess, numberToGuess, onGameOver]);
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const GameScreen = ({ numberToGuess, onGameOver }: IProps) => {
           </View>
         </View>
       </Card>
-      <View>
+      <View style={styles.logListContainer}>
         <FlatList
           data={guessRounds}
           renderItem={(itemData) => (
@@ -104,7 +104,7 @@ export default GameScreen;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    padding: 40,
+    padding: 30,
   },
   buttonsContainer: {
     flexDirection: "row",
@@ -115,5 +115,9 @@ const styles = StyleSheet.create({
   },
   instructionText: {
     marginBottom: 20,
+  },
+  logListContainer: {
+    flex: 1,
+    padding: 12,
   },
 });

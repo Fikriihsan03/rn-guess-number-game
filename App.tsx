@@ -15,6 +15,7 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [numberToGuess, setNumberToGuess] = useState<number | null>(null);
   const [isGameOver, setIsGameOver] = useState<boolean>(true);
+  const [totalRounds, setTotalRounds] = useState<number>(0);
   const [fontsLoaded] = useFonts({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
     "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
@@ -37,8 +38,9 @@ export default function App() {
     setNumberToGuess(number);
     setIsGameOver(false);
   }
-  function gameOverHandler() {
+  function gameOverHandler(totalRound: number) {
     setIsGameOver(true);
+    setTotalRounds(totalRound);
   }
   function ReStartGameHandler() {
     setNumberToGuess(null);
@@ -54,7 +56,7 @@ export default function App() {
     screen = (
       <GameOverScreen
         onReStartGame={ReStartGameHandler}
-        totalRounds={0}
+        totalRounds={totalRounds}
         numberToGuess={numberToGuess}
       />
     );
