@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
+
 import { Colors } from "../constants/Colors";
 
 interface IProps {
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: Colors.primary500,
-    padding:16,
+    padding: 16,
     elevation: 2,
   },
   buttonText: {

@@ -27,11 +27,6 @@ export default function App() {
     }
   }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    return null;
-  }
-  // if (!fontsLoaded) return <AppLoading />;
-
   let screen = <StartGameScreen onPickNumber={pickNumber} />;
 
   function pickNumber(number: number) {
@@ -47,6 +42,9 @@ export default function App() {
     setIsGameOver(false);
   }
 
+  if (!fontsLoaded) {
+    return null;
+  }
   if (numberToGuess != undefined) {
     screen = (
       <GameScreen numberToGuess={numberToGuess} onGameOver={gameOverHandler} />

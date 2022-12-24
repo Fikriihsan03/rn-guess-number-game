@@ -29,31 +29,30 @@ const StartGameScreen = ({ onPickNumber }: IProps) => {
     }
     onPickNumber(pickedNumber!);
   }
+
   return (
     <View style={styles.rootContainer}>
       <Title>Guess My Number</Title>
-        <Card>
-          <TextInstructions>Enter a Number</TextInstructions>
-          <TextInput
-            style={styles.inputNumber}
-            maxLength={2}
-            keyboardType="number-pad"
-            autoCapitalize="none"
-            autoCorrect={false}
-            onChangeText={numberInputHandler}
-            value={pickedNumber?.toString()}
-          />
-          <View style={styles.buttonsContainer}>
-            <View style={styles.buttonWrapper}>
-              <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
-            </View>
-            <View style={styles.buttonWrapper}>
-              <PrimaryButton onPress={confirmInputHandler}>
-                Confirm
-              </PrimaryButton>
-            </View>
+      <Card>
+        <TextInstructions>Enter a Number</TextInstructions>
+        <TextInput
+          style={styles.inputNumber}
+          maxLength={2}
+          keyboardType="number-pad"
+          autoCapitalize="none"
+          autoCorrect={false}
+          onChangeText={numberInputHandler}
+          value={pickedNumber?.toString()}
+        />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonWrapper}>
+            <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
           </View>
-        </Card>
+          <View style={styles.buttonWrapper}>
+            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+          </View>
+        </View>
+      </Card>
     </View>
   );
 };
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     fontSize: 30,
-    fontFamily:"open-sans-bold",
+    fontFamily: "open-sans-bold",
     marginVertical: 8,
     textAlign: "center",
   },

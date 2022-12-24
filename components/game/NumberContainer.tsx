@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
+
 import { Colors } from "../constants/Colors";
+
 interface IProps {
   children: React.ReactNode;
 }
+
 const NumberContainer = ({ children }: IProps) => {
   return (
     <View style={styles.container}>

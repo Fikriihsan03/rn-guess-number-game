@@ -1,8 +1,11 @@
 import { StyleSheet, View } from "react-native";
+
 import { Colors } from "../constants/Colors";
+
 interface IProps {
   children: React.ReactNode;
 }
+
 const Card = ({ children }: IProps) => {
   return <View style={styles.card}>{children}</View>;
 };
