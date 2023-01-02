@@ -11,48 +11,24 @@ interface IProps {
 }
 
 const StartGameScreen = ({ onPickNumber }: IProps) => {
-  const [pickedNumber, setPickedNumber] = useState<number | null>(null);
+  let maxBoundary: number = 100;
+  let minBoundary: number = 1;
 
-  function numberInputHandler(enteredNumber: string) {
-    if (isNaN(+enteredNumber)) return;
-    setPickedNumber(+enteredNumber);
+  function generateRandomNumber(min: number, max: number): number {
+    const randomNumber = Math.floor(Math.random() * (max - min)) + min;
+    return randomNumber;
   }
-  function resetInputHandler() {
-    setPickedNumber(null);
-  }
+
   function confirmInputHandler() {
-    if (pickedNumber! <= 0 || pickedNumber! > 99) {
-      Alert.alert("Invalid number!", "Number has to be between 1 and 99", [
-        { text: "Okay", style: "destructive", onPress: resetInputHandler },
-      ]);
-      return;
-    }
-    onPickNumber(pickedNumber!);
+    onPickNumber(generateRandomNumber(minBoundary, maxBoundary));
   }
 
   return (
     <View style={styles.rootContainer}>
-      <Title>Guess My Number</Title>
-      <Card>
-        <TextInstructions>Enter a Number</TextInstructions>
-        <TextInput
-          style={styles.inputNumber}
-          maxLength={2}
-          keyboardType="number-pad"
-          autoCapitalize="none"
-          autoCorrect={false}
-          onChangeText={numberInputHandler}
-          value={pickedNumber?.toString()}
-        />
-        <View style={styles.buttonsContainer}>
-          <View style={styles.buttonWrapper}>
-            <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
-          </View>
-          <View style={styles.buttonWrapper}>
-            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
-          </View>
-        </View>
-      </Card>
+      <Title>Guess Number Game</Title>
+      <View style={styles.buttonWrapper}>
+        <PrimaryButton onPress={confirmInputHandler}>Start Game</PrimaryButton>
+      </View>
     </View>
   );
 };
@@ -79,21 +55,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
   },
-  inputNumber: {
-    borderBottomWidth: 2,
-    borderBottomColor: Colors.accent500,
-    color: Colors.accent500,
-    height: 50,
-    width: 50,
-    fontSize: 30,
-    fontFamily: "open-sans-bold",
-    marginVertical: 8,
-    textAlign: "center",
-  },
   buttonsContainer: {
     flexDirection: "row",
   },
   buttonWrapper: {
     flex: 1,
+    justifyContent: "center",
   },
 });
