@@ -3,15 +3,22 @@ import { StyleSheet, Text, View } from "react-native";
 import { Colors } from "../constants/Colors";
 
 interface IProps {
-  guessedNumber: number;
+  guessedLog: {
+    hint: string;
+    guessedNumber: number|null;
+  };
   roundNumber: number;
 }
-
-const GuessLogItem = ({ roundNumber, guessedNumber }: IProps) => {
+const GuessLogItem = ({ roundNumber, guessedLog }: IProps) => {
   return (
     <View style={styles.listItem}>
+      <View>
+        <Text style={styles.itemText}>
+          Your Guess : {guessedLog.guessedNumber}
+        </Text>
+        <Text style={styles.itemText}>Hint : {guessedLog.hint}</Text>
+      </View>
       <Text style={styles.itemText}># {roundNumber}</Text>
-      <Text style={styles.itemText}>Opponent Guess : {guessedNumber}</Text>
     </View>
   );
 };
@@ -26,6 +33,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 8,
     flexDirection: "row",
+    alignItems:"center",
     justifyContent: "space-between",
     backgroundColor: Colors.accent500,
     color: Colors.primary600,
